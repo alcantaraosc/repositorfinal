@@ -1,0 +1,1994 @@
+USE [master]
+GO
+/****** Object:  Database [QAWEB]    Script Date: 3/9/2022 13:52:38 ******/
+CREATE DATABASE [QAWEB]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'QAWEB_SECURITY', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL13.MSSQLSERVER\MSSQL\DATA\QAWEB_SECURITY.mdf' , SIZE = 1974272KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'QAWEB_SECURITY_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL13.MSSQLSERVER\MSSQL\DATA\QAWEB_SECURITY_log.ldf' , SIZE = 6561792KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+GO
+ALTER DATABASE [QAWEB] SET COMPATIBILITY_LEVEL = 130
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [QAWEB].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [QAWEB] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [QAWEB] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [QAWEB] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [QAWEB] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [QAWEB] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [QAWEB] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [QAWEB] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [QAWEB] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [QAWEB] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [QAWEB] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [QAWEB] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [QAWEB] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [QAWEB] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [QAWEB] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [QAWEB] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [QAWEB] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [QAWEB] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [QAWEB] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [QAWEB] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [QAWEB] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [QAWEB] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [QAWEB] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [QAWEB] SET RECOVERY FULL 
+GO
+ALTER DATABASE [QAWEB] SET  MULTI_USER 
+GO
+ALTER DATABASE [QAWEB] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [QAWEB] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [QAWEB] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [QAWEB] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [QAWEB] SET DELAYED_DURABILITY = DISABLED 
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'QAWEB', N'ON'
+GO
+ALTER DATABASE [QAWEB] SET QUERY_STORE = OFF
+GO
+USE [QAWEB]
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET MAXDOP = 0;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET MAXDOP = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET LEGACY_CARDINALITY_ESTIMATION = OFF;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET LEGACY_CARDINALITY_ESTIMATION = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET PARAMETER_SNIFFING = ON;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET PARAMETER_SNIFFING = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET QUERY_OPTIMIZER_HOTFIXES = OFF;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET QUERY_OPTIMIZER_HOTFIXES = PRIMARY;
+GO
+USE [QAWEB]
+GO
+/****** Object:  Table [dbo].[Oportunidad]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Oportunidad](
+	[OportunidadID] [varchar](50) NOT NULL,
+	[ClienteID] [varchar](30) NOT NULL,
+	[NoOportunidad] [int] NOT NULL,
+	[ComentarioVendedor] [varchar](max) NULL,
+	[Cantidad] [int] NOT NULL,
+	[FinancieraID] [int] NOT NULL,
+	[Prima] [varchar](50) NOT NULL,
+	[VisitaID] [int] NOT NULL,
+	[ProximaLlamadaVendedor] [date] NOT NULL,
+	[UltimaLlamadaVendedorID] [int] NULL,
+	[MotivoID] [int] NOT NULL,
+	[LiderID] [int] NOT NULL,
+	[VendedorID] [int] NOT NULL,
+	[PruebaManejo] [bit] NOT NULL,
+	[SucursalID] [int] NOT NULL,
+	[Procesado] [bit] NOT NULL,
+	[PmfVhID] [int] NOT NULL,
+	[CodVendeOrigen] [int] NULL,
+	[NombreVendeOrigen] [varchar](100) NULL,
+	[TipoClaseID] [int] NOT NULL,
+	[ProximaLlamadaLider] [date] NULL,
+	[EstatusDacID] [int] NOT NULL,
+	[ProximaLlamadaDac] [date] NULL,
+	[CodStaLIDER] [nvarchar](max) NULL,
+	[EstatusFinancieroID] [int] NOT NULL,
+	[ProximaLlamadaFinanciero] [date] NULL,
+	[Hora_Op] [datetime2](7) NULL,
+	[EstatusTeleID] [int] NOT NULL,
+	[ProximaLlamadaTele] [date] NULL,
+	[VentaPerdida] [bit] NOT NULL,
+	[Contacto] [varchar](100) NULL,
+	[Correo] [varchar](150) NULL,
+	[Celular] [varchar](100) NULL,
+	[Telefono] [varchar](100) NULL,
+	[Programado] [bit] NULL,
+	[EstatusOportunidadID] [int] NOT NULL,
+	[FechaCierreOport] [date] NOT NULL,
+	[PoseeVH] [bit] NULL,
+	[LeInteresaAvaluo] [bit] NULL,
+	[AñoModelo] [varchar](50) NULL,
+	[RealizoAvaluo] [bit] NULL,
+	[ModeloVHquePosee] [varchar](150) NULL,
+	[AplicaAvaluo] [bit] NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+ CONSTRAINT [PK_Oportunidad] PRIMARY KEY CLUSTERED 
+(
+	[OportunidadID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Cliente]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Cliente](
+	[ClienteID] [varchar](30) NOT NULL,
+	[TipoIdentificacionID] [int] NOT NULL,
+	[NombreCliente] [varchar](250) NOT NULL,
+	[Direccion] [varchar](430) NOT NULL,
+	[Contacto] [varchar](250) NOT NULL,
+	[Edad] [int] NOT NULL,
+	[TipoSexoID] [int] NOT NULL,
+	[EstadoCivilID] [int] NOT NULL,
+	[Procesado] [bit] NOT NULL,
+	[Email] [varchar](75) NULL,
+	[Email2] [varchar](75) NULL,
+	[Email3] [varchar](75) NULL,
+	[Telefonos] [varchar](50) NULL,
+	[TelefonoHab] [varchar](20) NULL,
+	[Celular] [varchar](20) NOT NULL,
+	[Fax] [varchar](20) NULL,
+	[DepartamentoID] [int] NOT NULL,
+	[MunicipioID] [int] NOT NULL,
+	[Ocupacion] [varchar](150) NOT NULL,
+	[SucursalID] [int] NOT NULL,
+	[Revisado] [bit] NOT NULL,
+	[UserRevisado] [varchar](50) NULL,
+	[ComentarioRevisado] [varchar](max) NULL,
+	[HoraRegistrada] [datetime] NOT NULL,
+	[ClienteIndesable] [bit] NOT NULL,
+	[PersoneriaID] [int] NOT NULL,
+	[PEP] [varchar](20) NOT NULL,
+	[UsuarioID] [int] NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+ CONSTRAINT [PK_Cliente] PRIMARY KEY CLUSTERED 
+(
+	[ClienteID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[EstatusOportunidad]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[EstatusOportunidad](
+	[EstatusOportunidadID] [int] IDENTITY(1,1) NOT NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+	[NombreEstatusOportunidad] [varchar](150) NOT NULL,
+	[Activo] [bit] NOT NULL,
+ CONSTRAINT [PK_EstatusOportunidad] PRIMARY KEY CLUSTERED 
+(
+	[EstatusOportunidadID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Lider]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Lider](
+	[LiderID] [int] IDENTITY(1,1) NOT NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+	[NombreLider] [varchar](100) NOT NULL,
+	[CodigoLider] [varchar](5) NOT NULL,
+	[Area] [varchar](10) NOT NULL,
+	[Empresa] [varchar](20) NOT NULL,
+	[UserID] [int] NOT NULL,
+	[Activo] [bit] NOT NULL,
+	[Identificacion] [varchar](50) NULL,
+ CONSTRAINT [PK_Lider] PRIMARY KEY CLUSTERED 
+(
+	[LiderID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Vendedor]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Vendedor](
+	[VendedorID] [int] IDENTITY(1,1) NOT NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+	[Identificacion] [varchar](50) NOT NULL,
+	[CodigoVendedor] [varchar](5) NOT NULL,
+	[NombreVendedor] [varchar](70) NOT NULL,
+	[Activo] [bit] NOT NULL,
+	[UsuarioID] [int] NOT NULL,
+	[SucursalID] [int] NOT NULL,
+	[LiderID] [int] NOT NULL,
+ CONSTRAINT [PK_Vendedor] PRIMARY KEY CLUSTERED 
+(
+	[VendedorID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Financiera]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Financiera](
+	[FinancieraID] [int] IDENTITY(1,1) NOT NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+	[NombreFinanciera] [varchar](50) NULL,
+	[Activo] [bit] NOT NULL,
+	[TipoCategoriaID] [int] NOT NULL,
+ CONSTRAINT [PK_Financiera] PRIMARY KEY CLUSTERED 
+(
+	[FinancieraID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  View [dbo].[vwfichasLlamadas]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE VIEW [dbo].[vwfichasLlamadas]
+AS
+SELECT        dbo.Cliente.ClienteID, dbo.Cliente.NombreCliente, dbo.Oportunidad.NoOportunidad, dbo.Oportunidad.ProximaLlamadaVendedor, 'COMENTARIO' AS ComentarioLider, dbo.Financiera.NombreFinanciera AS Financiera, 
+                         dbo.EstatusOportunidad.NombreEstatusOportunidad AS EstatusOportunidad, dbo.Lider.NombreLider, dbo.Vendedor.NombreVendedor
+FROM            dbo.Cliente INNER JOIN
+                         dbo.Oportunidad ON dbo.Cliente.ClienteID = dbo.Oportunidad.ClienteID INNER JOIN
+                         dbo.Financiera ON dbo.Oportunidad.FinancieraID = dbo.Financiera.FinancieraID INNER JOIN
+                         dbo.EstatusOportunidad ON dbo.Oportunidad.EstatusOportunidadID = dbo.EstatusOportunidad.EstatusOportunidadID INNER JOIN
+                         dbo.Lider ON dbo.Oportunidad.LiderID = dbo.Lider.LiderID INNER JOIN
+                         dbo.Vendedor ON dbo.Oportunidad.VendedorID = dbo.Vendedor.VendedorID AND dbo.Lider.LiderID = dbo.Vendedor.LiderID
+
+
+GO
+/****** Object:  Table [dbo].[Sucursal]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Sucursal](
+	[SucursalID] [int] IDENTITY(1,1) NOT NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+	[NombreSucursal] [varchar](80) NOT NULL,
+	[Abreviatura] [varchar](7) NOT NULL,
+	[Activo] [bit] NOT NULL,
+ CONSTRAINT [PK_Sucursal] PRIMARY KEY CLUSTERED 
+(
+	[SucursalID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[TipoIdentificacion]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TipoIdentificacion](
+	[TipoIdentificacionID] [int] IDENTITY(1,1) NOT NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+	[NombreIdentificacion] [varchar](80) NOT NULL,
+	[Activo] [bit] NOT NULL,
+	[GenerarIDAutomatico] [bit] NOT NULL,
+ CONSTRAINT [PK_TipoIdentificacion] PRIMARY KEY CLUSTERED 
+(
+	[TipoIdentificacionID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  View [dbo].[vwfichasClientes]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE VIEW [dbo].[vwfichasClientes]
+AS
+	SELECT        dbo.Cliente.ClienteID, dbo.Cliente.NombreCliente, dbo.Cliente.Contacto, dbo.TipoIdentificacion.NombreIdentificacion, 'COMENTARIO' AS ComentarioLider, dbo.Cliente.FechaCreacion, dbo.Lider.LiderID, dbo.Lider.NombreLider, 
+							 dbo.Vendedor.VendedorID, dbo.Vendedor.NombreVendedor, dbo.Cliente.Revisado, dbo.Cliente.UserRevisado
+	FROM            dbo.Cliente INNER JOIN
+							 dbo.Oportunidad ON dbo.Cliente.ClienteID = dbo.Oportunidad.ClienteID INNER JOIN
+							 dbo.Lider ON dbo.Oportunidad.LiderID = dbo.Lider.LiderID INNER JOIN
+							 dbo.Vendedor ON dbo.Oportunidad.VendedorID = dbo.Vendedor.VendedorID AND dbo.Lider.LiderID = dbo.Vendedor.LiderID INNER JOIN
+							 dbo.TipoIdentificacion ON dbo.Cliente.TipoIdentificacionID = dbo.TipoIdentificacion.TipoIdentificacionID INNER JOIN
+							 dbo.Sucursal ON dbo.Cliente.SucursalID = dbo.Sucursal.SucursalID AND dbo.Oportunidad.SucursalID = dbo.Sucursal.SucursalID
+
+
+GO
+/****** Object:  View [dbo].[ListaCliente]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE VIEW [dbo].[ListaCliente]
+AS
+SELECT        dbo.Cliente.ClienteID, dbo.Cliente.NombreCliente, dbo.Cliente.Contacto, dbo.TipoIdentificacion.NombreIdentificacion, dbo.Sucursal.NombreSucursal, dbo.Cliente.Procesado, dbo.Cliente.Revisado, dbo.Cliente.Celular, 
+                         dbo.Cliente.Telefonos, dbo.Cliente.Fax, dbo.Cliente.TelefonoHab
+FROM            dbo.Cliente INNER JOIN
+                         dbo.Sucursal ON dbo.Cliente.SucursalID = dbo.Sucursal.SucursalID INNER JOIN
+                         dbo.TipoIdentificacion ON dbo.Cliente.TipoIdentificacionID = dbo.TipoIdentificacion.TipoIdentificacionID
+
+
+GO
+/****** Object:  Table [dbo].[Funciones]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Funciones](
+	[FuncionID] [int] IDENTITY(1,1) NOT NULL,
+	[NombreFuncion] [varchar](100) NOT NULL,
+	[Codigo] [varchar](50) NOT NULL,
+	[Descripcion] [varchar](100) NOT NULL,
+	[Activo] [bit] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[FechaModificacion] [datetime] NULL,
+ CONSTRAINT [PK_Funciones] PRIMARY KEY CLUSTERED 
+(
+	[FuncionID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Roles]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Roles](
+	[RolID] [int] IDENTITY(1,1) NOT NULL,
+	[NombreRol] [varchar](100) NOT NULL,
+	[Descripcion] [varchar](150) NOT NULL,
+	[Activo] [bit] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[FechaModificacion] [datetime] NULL,
+ CONSTRAINT [PK_Roles] PRIMARY KEY CLUSTERED 
+(
+	[RolID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Usuario]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Usuario](
+	[UsuarioID] [int] IDENTITY(1,1) NOT NULL,
+	[LoginUsuario] [varchar](30) NOT NULL,
+	[NombreUsuario] [varchar](100) NOT NULL,
+	[ApellidoUsuario] [varchar](100) NOT NULL,
+	[Correo] [varchar](60) NULL,
+	[EsAdmin] [bit] NOT NULL,
+	[CambiarClave] [bit] NOT NULL,
+	[Salt] [varchar](16) NOT NULL,
+	[Clave] [varchar](44) NOT NULL,
+	[Activo] [bit] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[FechaModificacion] [datetime] NULL,
+ CONSTRAINT [PK_Usuario] PRIMARY KEY CLUSTERED 
+(
+	[UsuarioID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[FuncionesRoles]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[FuncionesRoles](
+	[FuncionID] [int] NOT NULL,
+	[RolID] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[FechaModificacion] [datetime] NULL,
+ CONSTRAINT [PK_FuncionesRoles] PRIMARY KEY CLUSTERED 
+(
+	[FuncionID] ASC,
+	[RolID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[RolesUsuarios]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[RolesUsuarios](
+	[RolID] [int] NOT NULL,
+	[UsuarioID] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[FechaModificacion] [datetime] NULL,
+ CONSTRAINT [PK_RolesUsuarios] PRIMARY KEY CLUSTERED 
+(
+	[RolID] ASC,
+	[UsuarioID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  View [dbo].[vwFuncionesUsuario]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE VIEW [dbo].[vwFuncionesUsuario]
+AS
+
+SELECT        Usuario.UsuarioID, Usuario.LoginUsuario, Usuario.NombreUsuario, Usuario.ApellidoUsuario, Usuario.Correo, Usuario.EsAdmin, Usuario.CambiarClave, Usuario.Salt, Usuario.Clave, Usuario.Activo, Usuario.FechaCreacion, 
+                         Usuario.FechaModificacion, Roles.RolID, Roles.NombreRol, Roles.Descripcion, Funciones.FuncionID, Funciones.NombreFuncion, Funciones.Codigo, Funciones.Descripcion AS FuncionDescripcion
+FROM            Usuario INNER JOIN
+                         RolesUsuarios ON Usuario.UsuarioID = RolesUsuarios.UsuarioID INNER JOIN
+                         Roles ON RolesUsuarios.RolID = Roles.RolID INNER JOIN
+                         FuncionesRoles ON Roles.RolID = FuncionesRoles.RolID INNER JOIN
+                         Funciones ON FuncionesRoles.FuncionID = Funciones.FuncionID
+
+
+
+
+GO
+/****** Object:  Table [dbo].[LlamadasVendedor]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[LlamadasVendedor](
+	[LlamadaVendedorID] [int] IDENTITY(1,1) NOT NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+	[OportunidadID] [varchar](50) NOT NULL,
+	[ComentarioVendedor] [varchar](max) NOT NULL,
+	[Revisado] [bit] NOT NULL,
+	[IdLlamada] [int] NOT NULL,
+	[ProximaLlamadaVendedor] [date] NOT NULL,
+	[EstatusOportunidadID] [int] NOT NULL,
+	[NombreStatusOportunidad] [varchar](150) NOT NULL,
+	[ComentarioLider] [varchar](max) NULL,
+	[Visita] [bit] NOT NULL,
+	[Llamada] [bit] NOT NULL,
+	[Avaluo] [bit] NOT NULL,
+	[Correo] [bit] NOT NULL,
+	[Importancia] [bit] NOT NULL,
+ CONSTRAINT [PK_LlamadasVendedor] PRIMARY KEY CLUSTERED 
+(
+	[LlamadaVendedorID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  View [dbo].[vwLlamadaDelDiaVendedor]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE VIEW [dbo].[vwLlamadaDelDiaVendedor]
+AS
+SELECT        dbo.Cliente.ClienteID, dbo.Cliente.NombreCliente, dbo.Oportunidad.OportunidadID, dbo.Oportunidad.NoOportunidad, dbo.Oportunidad.VendedorID, dbo.Oportunidad.ProximaLlamadaVendedor, dbo.Oportunidad.VentaPerdida, 
+                         dbo.Oportunidad.LiderID, ISNULL(dbo.LlamadasVendedor.Importancia,0) AS Importancia, dbo.Oportunidad.UltimaLlamadaVendedorID, dbo.LlamadasVendedor.LlamadaVendedorID
+FROM            dbo.Cliente INNER JOIN
+                         dbo.Oportunidad ON dbo.Cliente.ClienteID = dbo.Oportunidad.ClienteID LEFT OUTER JOIN
+                         dbo.LlamadasVendedor ON dbo.Oportunidad.UltimaLlamadaVendedorID = dbo.LlamadasVendedor.LlamadaVendedorID AND dbo.Oportunidad.OportunidadID = dbo.LlamadasVendedor.OportunidadID
+
+
+GO
+/****** Object:  Table [dbo].[__EFMigrationsHistory]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[__EFMigrationsHistory](
+	[MigrationId] [nvarchar](150) NOT NULL,
+	[ProductVersion] [nvarchar](32) NOT NULL,
+ CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY CLUSTERED 
+(
+	[MigrationId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Departamento]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Departamento](
+	[DepartamentoID] [int] IDENTITY(1,1) NOT NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+	[NombreDepartamento] [varchar](80) NOT NULL,
+	[Activo] [bit] NOT NULL,
+ CONSTRAINT [PK_Departamento] PRIMARY KEY CLUSTERED 
+(
+	[DepartamentoID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[DiaFeriados]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DiaFeriados](
+	[DiaFeriadosID] [int] IDENTITY(1,1) NOT NULL,
+	[Dia] [int] NOT NULL,
+	[Mes] [int] NOT NULL,
+ CONSTRAINT [PK_DiaFeriados] PRIMARY KEY CLUSTERED 
+(
+	[DiaFeriadosID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[EstadoCivil]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[EstadoCivil](
+	[EstadoCivilID] [int] IDENTITY(1,1) NOT NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+	[NombreEstadoCivil] [varchar](50) NOT NULL,
+	[Activo] [bit] NOT NULL,
+ CONSTRAINT [PK_EstadoCivil] PRIMARY KEY CLUSTERED 
+(
+	[EstadoCivilID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[EstatusDac]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[EstatusDac](
+	[EstatusDacID] [int] IDENTITY(1,1) NOT NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+	[NombreEstatusDac] [varchar](150) NOT NULL,
+	[Activo] [bit] NOT NULL,
+ CONSTRAINT [PK_EstatusDac] PRIMARY KEY CLUSTERED 
+(
+	[EstatusDacID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[EstatusFinanciero]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[EstatusFinanciero](
+	[EstatusFinancieroID] [int] IDENTITY(1,1) NOT NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+	[NombreEstatusFinanciero] [varchar](150) NOT NULL,
+	[Activo] [bit] NOT NULL,
+ CONSTRAINT [PK_EstatusFinanciero] PRIMARY KEY CLUSTERED 
+(
+	[EstatusFinancieroID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[LlamadasDac]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[LlamadasDac](
+	[LlamadasDacID] [int] IDENTITY(1,1) NOT NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+	[OportunidadID] [varchar](50) NOT NULL,
+	[ComentariosDac] [varchar](max) NOT NULL,
+	[Revisado] [bit] NOT NULL,
+	[PersonalDacID] [int] NOT NULL,
+	[IdLlamada] [int] NOT NULL,
+	[ProximaLlamadaDac] [date] NOT NULL,
+	[codStaDAC] [nvarchar](max) NULL,
+	[Nombre] [nvarchar](max) NULL,
+ CONSTRAINT [PK_LlamadasDac] PRIMARY KEY CLUSTERED 
+(
+	[LlamadasDacID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[LlamadasFinanciero]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[LlamadasFinanciero](
+	[LlamadasFinancieroID] [int] IDENTITY(1,1) NOT NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+	[OportunidadID] [varchar](50) NOT NULL,
+	[ComentarioFinanciero] [varchar](max) NOT NULL,
+	[IdLlamada] [bit] NOT NULL,
+	[ProximaLlamadaFinanciero] [datetime2](7) NOT NULL,
+ CONSTRAINT [PK_LlamadasFinanciero] PRIMARY KEY CLUSTERED 
+(
+	[LlamadasFinancieroID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[LlamadasLider]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[LlamadasLider](
+	[LlamadaLiderID] [int] IDENTITY(1,1) NOT NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+	[OportunidadID] [varchar](50) NOT NULL,
+	[ComentarioLider] [varchar](max) NOT NULL,
+	[Revisado] [bit] NOT NULL,
+	[IdLlamada] [int] NOT NULL,
+	[ProximaLlamadaLider] [date] NOT NULL,
+ CONSTRAINT [PK_LlamadasLider] PRIMARY KEY CLUSTERED 
+(
+	[LlamadaLiderID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[LlamadasRecompraDac]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[LlamadasRecompraDac](
+	[LlamadasRecompraDacID] [int] IDENTITY(1,1) NOT NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+	[OportunidadID] [varchar](50) NOT NULL,
+	[ComentarioLlamadaRecompraDac] [nvarchar](max) NOT NULL,
+	[Revisado] [bit] NOT NULL,
+	[DacID] [int] NOT NULL,
+	[IdLlamada] [int] NOT NULL,
+	[ProximaLlamadaRecompraDac] [date] NOT NULL,
+	[EstatusDacID] [int] NOT NULL,
+	[NombreEstatusRecompra] [varchar](150) NOT NULL,
+ CONSTRAINT [PK_LlamadasRecompraDac] PRIMARY KEY CLUSTERED 
+(
+	[LlamadasRecompraDacID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[LlamadasSuperDac]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[LlamadasSuperDac](
+	[LlamadasSuperDACID] [int] IDENTITY(1,1) NOT NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+	[OportunidadID] [varchar](50) NOT NULL,
+	[Comentarios] [varchar](max) NOT NULL,
+	[IdLlamada] [int] NOT NULL,
+	[ProxiLlamadaDAC] [date] NOT NULL,
+ CONSTRAINT [PK_LlamadasSuperDac] PRIMARY KEY CLUSTERED 
+(
+	[LlamadasSuperDACID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Modelo]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Modelo](
+	[ModeloID] [int] IDENTITY(1,1) NOT NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+	[NombreModelo] [varchar](100) NOT NULL,
+	[Activo] [bit] NOT NULL,
+	[Empresa] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_Modelo] PRIMARY KEY CLUSTERED 
+(
+	[ModeloID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Motivo]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Motivo](
+	[MotivoID] [int] IDENTITY(1,1) NOT NULL,
+	[NombreMotivo] [varchar](150) NOT NULL,
+	[Activo] [bit] NOT NULL,
+	[Departamento] [int] NOT NULL,
+	[Tipo] [int] NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+ CONSTRAINT [PK_Motivo] PRIMARY KEY CLUSTERED 
+(
+	[MotivoID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Municipio]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Municipio](
+	[MunicipioID] [int] IDENTITY(1,1) NOT NULL,
+	[DepartamentoID] [int] NOT NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+	[NombreMunicipio] [varchar](80) NOT NULL,
+	[Activo] [bit] NOT NULL,
+ CONSTRAINT [PK_Municipio] PRIMARY KEY CLUSTERED 
+(
+	[MunicipioID] ASC,
+	[DepartamentoID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[PersonalDac]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[PersonalDac](
+	[PersonalDacID] [int] IDENTITY(1,1) NOT NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+	[NombrePersonalDac] [varchar](100) NOT NULL,
+	[Activo] [bit] NOT NULL,
+ CONSTRAINT [PK_PersonalDac] PRIMARY KEY CLUSTERED 
+(
+	[PersonalDacID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Personeria]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Personeria](
+	[PersoneriaID] [int] IDENTITY(1,1) NOT NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+	[NombrePersoneria] [varchar](30) NOT NULL,
+	[Activo] [bit] NOT NULL,
+ CONSTRAINT [PK_Personeria] PRIMARY KEY CLUSTERED 
+(
+	[PersoneriaID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[PmfVh]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[PmfVh](
+	[PmfVhID] [int] IDENTITY(1,1) NOT NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+	[ModeloID] [int] NOT NULL,
+	[NombrePmf] [varchar](100) NOT NULL,
+	[Activo] [bit] NOT NULL,
+ CONSTRAINT [PK_PmfVh] PRIMARY KEY CLUSTERED 
+(
+	[PmfVhID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Sistemas]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Sistemas](
+	[SistemaID] [int] NOT NULL,
+	[Sistema] [varchar](70) NOT NULL,
+	[Activo] [bit] NOT NULL,
+	[FechaCreacion] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_Sistemas] PRIMARY KEY CLUSTERED 
+(
+	[SistemaID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[TipoCategoria]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TipoCategoria](
+	[TipoCategoriaID] [int] IDENTITY(1,1) NOT NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+	[NombreTipoCategoria] [varchar](50) NOT NULL,
+	[Activo] [bit] NOT NULL,
+ CONSTRAINT [PK_TipoCategoria] PRIMARY KEY CLUSTERED 
+(
+	[TipoCategoriaID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[TipoClase]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TipoClase](
+	[TipoClaseID] [int] IDENTITY(1,1) NOT NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+	[NombreTipoClase] [varchar](50) NOT NULL,
+	[Activo] [bit] NOT NULL,
+ CONSTRAINT [PK_TipoClase] PRIMARY KEY CLUSTERED 
+(
+	[TipoClaseID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[TipoSexo]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TipoSexo](
+	[TipoSexoID] [int] IDENTITY(1,1) NOT NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+	[NombreSexo] [varchar](20) NOT NULL,
+	[Activo] [bit] NOT NULL,
+ CONSTRAINT [PK_TipoSexo] PRIMARY KEY CLUSTERED 
+(
+	[TipoSexoID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Visita]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Visita](
+	[VisitaID] [int] IDENTITY(1,1) NOT NULL,
+	[UserIDCreacion] [int] NOT NULL,
+	[FechaCreacion] [datetime] NOT NULL,
+	[UserIDModificacion] [int] NULL,
+	[FechaModificacion] [datetime] NULL,
+	[NombreVisita] [varchar](20) NOT NULL,
+	[Activo] [bit] NOT NULL,
+ CONSTRAINT [PK_Visita] PRIMARY KEY CLUSTERED 
+(
+	[VisitaID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Index [IX_Cliente_EstadoCivilID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_Cliente_EstadoCivilID] ON [dbo].[Cliente]
+(
+	[EstadoCivilID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Cliente_MunicipioID_DepartamentoID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_Cliente_MunicipioID_DepartamentoID] ON [dbo].[Cliente]
+(
+	[MunicipioID] ASC,
+	[DepartamentoID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Cliente_PersoneriaID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_Cliente_PersoneriaID] ON [dbo].[Cliente]
+(
+	[PersoneriaID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Cliente_SucursalID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_Cliente_SucursalID] ON [dbo].[Cliente]
+(
+	[SucursalID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Cliente_TipoIdentificacionID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_Cliente_TipoIdentificacionID] ON [dbo].[Cliente]
+(
+	[TipoIdentificacionID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Cliente_TipoSexoID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_Cliente_TipoSexoID] ON [dbo].[Cliente]
+(
+	[TipoSexoID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Cliente_UsuarioID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_Cliente_UsuarioID] ON [dbo].[Cliente]
+(
+	[UsuarioID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Financiera_TipoCategoriaID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_Financiera_TipoCategoriaID] ON [dbo].[Financiera]
+(
+	[TipoCategoriaID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_FuncionesRoles_RolesID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_FuncionesRoles_RolesID] ON [dbo].[FuncionesRoles]
+(
+	[RolID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+
+GO
+/****** Object:  Index [IX_LlamadasDac_OportunidadID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_LlamadasDac_OportunidadID] ON [dbo].[LlamadasDac]
+(
+	[OportunidadID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_LlamadasDac_PersonalDacID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_LlamadasDac_PersonalDacID] ON [dbo].[LlamadasDac]
+(
+	[PersonalDacID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+
+GO
+/****** Object:  Index [IX_LlamadasFinanciero_OportunidadID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_LlamadasFinanciero_OportunidadID] ON [dbo].[LlamadasFinanciero]
+(
+	[OportunidadID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+
+GO
+/****** Object:  Index [IX_LlamadasLider_OportunidadID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_LlamadasLider_OportunidadID] ON [dbo].[LlamadasLider]
+(
+	[OportunidadID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+
+GO
+/****** Object:  Index [IX_LlamadasRecompraDac_OportunidadID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_LlamadasRecompraDac_OportunidadID] ON [dbo].[LlamadasRecompraDac]
+(
+	[OportunidadID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+
+GO
+/****** Object:  Index [IX_LlamadasSuperDac_OportunidadID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_LlamadasSuperDac_OportunidadID] ON [dbo].[LlamadasSuperDac]
+(
+	[OportunidadID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+
+GO
+/****** Object:  Index [IX_LlamadasVendedor_OportunidadID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_LlamadasVendedor_OportunidadID] ON [dbo].[LlamadasVendedor]
+(
+	[OportunidadID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Municipio_DepartamentoID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_Municipio_DepartamentoID] ON [dbo].[Municipio]
+(
+	[DepartamentoID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+
+GO
+/****** Object:  Index [IX_Oportunidad_ClienteID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_Oportunidad_ClienteID] ON [dbo].[Oportunidad]
+(
+	[ClienteID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Oportunidad_EstatusDacID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_Oportunidad_EstatusDacID] ON [dbo].[Oportunidad]
+(
+	[EstatusDacID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Oportunidad_EstatusFinancieroID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_Oportunidad_EstatusFinancieroID] ON [dbo].[Oportunidad]
+(
+	[EstatusFinancieroID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Oportunidad_EstatusOportunidadID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_Oportunidad_EstatusOportunidadID] ON [dbo].[Oportunidad]
+(
+	[EstatusOportunidadID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Oportunidad_FinancieraID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_Oportunidad_FinancieraID] ON [dbo].[Oportunidad]
+(
+	[FinancieraID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Oportunidad_LiderID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_Oportunidad_LiderID] ON [dbo].[Oportunidad]
+(
+	[LiderID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Oportunidad_MotivoID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_Oportunidad_MotivoID] ON [dbo].[Oportunidad]
+(
+	[MotivoID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Oportunidad_PmfVhID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_Oportunidad_PmfVhID] ON [dbo].[Oportunidad]
+(
+	[PmfVhID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Oportunidad_SucursalID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_Oportunidad_SucursalID] ON [dbo].[Oportunidad]
+(
+	[SucursalID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Oportunidad_TipoClaseID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_Oportunidad_TipoClaseID] ON [dbo].[Oportunidad]
+(
+	[TipoClaseID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Oportunidad_VendedorID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_Oportunidad_VendedorID] ON [dbo].[Oportunidad]
+(
+	[VendedorID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Oportunidad_VisitaID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_Oportunidad_VisitaID] ON [dbo].[Oportunidad]
+(
+	[VisitaID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_PmfVh_ModeloID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_PmfVh_ModeloID] ON [dbo].[PmfVh]
+(
+	[ModeloID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_RolesUsuarios_UsuarioID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_RolesUsuarios_UsuarioID] ON [dbo].[RolesUsuarios]
+(
+	[UsuarioID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Vendedor_LiderID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_Vendedor_LiderID] ON [dbo].[Vendedor]
+(
+	[LiderID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Vendedor_SucursalID]    Script Date: 3/9/2022 13:52:39 ******/
+CREATE NONCLUSTERED INDEX [IX_Vendedor_SucursalID] ON [dbo].[Vendedor]
+(
+	[SucursalID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[LlamadasVendedor] ADD  CONSTRAINT [DF_LlamadasVendedor_Visita]  DEFAULT ((0)) FOR [Visita]
+GO
+ALTER TABLE [dbo].[LlamadasVendedor] ADD  CONSTRAINT [DF_LlamadasVendedor_Llamada]  DEFAULT ((0)) FOR [Llamada]
+GO
+ALTER TABLE [dbo].[LlamadasVendedor] ADD  CONSTRAINT [DF_LlamadasVendedor_Avaluo]  DEFAULT ((0)) FOR [Avaluo]
+GO
+ALTER TABLE [dbo].[LlamadasVendedor] ADD  CONSTRAINT [DF_LlamadasVendedor_Correo]  DEFAULT ((0)) FOR [Correo]
+GO
+ALTER TABLE [dbo].[LlamadasVendedor] ADD  CONSTRAINT [DF_LlamadasVendedor_Importancia]  DEFAULT ((0)) FOR [Importancia]
+GO
+ALTER TABLE [dbo].[Oportunidad] ADD  CONSTRAINT [DF_Oportunidad_VentaPerdida]  DEFAULT ((0)) FOR [VentaPerdida]
+GO
+ALTER TABLE [dbo].[Usuario] ADD  CONSTRAINT [DF_Usuario_FechaCreacion]  DEFAULT (getdate()) FOR [FechaCreacion]
+GO
+ALTER TABLE [dbo].[Cliente]  WITH CHECK ADD  CONSTRAINT [FK_Cliente_EstadoCivil_EstadoCivilID] FOREIGN KEY([EstadoCivilID])
+REFERENCES [dbo].[EstadoCivil] ([EstadoCivilID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Cliente] CHECK CONSTRAINT [FK_Cliente_EstadoCivil_EstadoCivilID]
+GO
+ALTER TABLE [dbo].[Cliente]  WITH CHECK ADD  CONSTRAINT [FK_Cliente_Municipio_MunicipioID_DepartamentoID] FOREIGN KEY([MunicipioID], [DepartamentoID])
+REFERENCES [dbo].[Municipio] ([MunicipioID], [DepartamentoID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Cliente] CHECK CONSTRAINT [FK_Cliente_Municipio_MunicipioID_DepartamentoID]
+GO
+ALTER TABLE [dbo].[Cliente]  WITH CHECK ADD  CONSTRAINT [FK_Cliente_Personeria_PersoneriaID] FOREIGN KEY([PersoneriaID])
+REFERENCES [dbo].[Personeria] ([PersoneriaID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Cliente] CHECK CONSTRAINT [FK_Cliente_Personeria_PersoneriaID]
+GO
+ALTER TABLE [dbo].[Cliente]  WITH CHECK ADD  CONSTRAINT [FK_Cliente_Sucursal_SucursalID] FOREIGN KEY([SucursalID])
+REFERENCES [dbo].[Sucursal] ([SucursalID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Cliente] CHECK CONSTRAINT [FK_Cliente_Sucursal_SucursalID]
+GO
+ALTER TABLE [dbo].[Cliente]  WITH CHECK ADD  CONSTRAINT [FK_Cliente_TipoIdentificacion_TipoIdentificacionID] FOREIGN KEY([TipoIdentificacionID])
+REFERENCES [dbo].[TipoIdentificacion] ([TipoIdentificacionID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Cliente] CHECK CONSTRAINT [FK_Cliente_TipoIdentificacion_TipoIdentificacionID]
+GO
+ALTER TABLE [dbo].[Cliente]  WITH CHECK ADD  CONSTRAINT [FK_Cliente_TipoSexo_TipoSexoID] FOREIGN KEY([TipoSexoID])
+REFERENCES [dbo].[TipoSexo] ([TipoSexoID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Cliente] CHECK CONSTRAINT [FK_Cliente_TipoSexo_TipoSexoID]
+GO
+ALTER TABLE [dbo].[Cliente]  WITH CHECK ADD  CONSTRAINT [FK_Cliente_Usuario_UsuarioID] FOREIGN KEY([UsuarioID])
+REFERENCES [dbo].[Usuario] ([UsuarioID])
+GO
+ALTER TABLE [dbo].[Cliente] CHECK CONSTRAINT [FK_Cliente_Usuario_UsuarioID]
+GO
+ALTER TABLE [dbo].[Financiera]  WITH CHECK ADD  CONSTRAINT [FK_Financiera_TipoCategoria_TipoCategoriaID] FOREIGN KEY([TipoCategoriaID])
+REFERENCES [dbo].[TipoCategoria] ([TipoCategoriaID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Financiera] CHECK CONSTRAINT [FK_Financiera_TipoCategoria_TipoCategoriaID]
+GO
+ALTER TABLE [dbo].[FuncionesRoles]  WITH CHECK ADD  CONSTRAINT [FK_FuncionesRoles_Funciones_FuncionID] FOREIGN KEY([FuncionID])
+REFERENCES [dbo].[Funciones] ([FuncionID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[FuncionesRoles] CHECK CONSTRAINT [FK_FuncionesRoles_Funciones_FuncionID]
+GO
+ALTER TABLE [dbo].[FuncionesRoles]  WITH CHECK ADD  CONSTRAINT [FK_FuncionesRoles_Roles_RolID] FOREIGN KEY([RolID])
+REFERENCES [dbo].[Roles] ([RolID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[FuncionesRoles] CHECK CONSTRAINT [FK_FuncionesRoles_Roles_RolID]
+GO
+ALTER TABLE [dbo].[LlamadasDac]  WITH CHECK ADD  CONSTRAINT [FK_LlamadasDac_Oportunidad_OportunidadID] FOREIGN KEY([OportunidadID])
+REFERENCES [dbo].[Oportunidad] ([OportunidadID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[LlamadasDac] CHECK CONSTRAINT [FK_LlamadasDac_Oportunidad_OportunidadID]
+GO
+ALTER TABLE [dbo].[LlamadasDac]  WITH CHECK ADD  CONSTRAINT [FK_LlamadasDac_PersonalDac_PersonalDacID] FOREIGN KEY([PersonalDacID])
+REFERENCES [dbo].[PersonalDac] ([PersonalDacID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[LlamadasDac] CHECK CONSTRAINT [FK_LlamadasDac_PersonalDac_PersonalDacID]
+GO
+ALTER TABLE [dbo].[LlamadasFinanciero]  WITH CHECK ADD  CONSTRAINT [FK_LlamadasFinanciero_Oportunidad_OportunidadID] FOREIGN KEY([OportunidadID])
+REFERENCES [dbo].[Oportunidad] ([OportunidadID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[LlamadasFinanciero] CHECK CONSTRAINT [FK_LlamadasFinanciero_Oportunidad_OportunidadID]
+GO
+ALTER TABLE [dbo].[LlamadasLider]  WITH CHECK ADD  CONSTRAINT [FK_LlamadasLider_Oportunidad_OportunidadID] FOREIGN KEY([OportunidadID])
+REFERENCES [dbo].[Oportunidad] ([OportunidadID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[LlamadasLider] CHECK CONSTRAINT [FK_LlamadasLider_Oportunidad_OportunidadID]
+GO
+ALTER TABLE [dbo].[LlamadasRecompraDac]  WITH CHECK ADD  CONSTRAINT [FK_LlamadasRecompraDac_Oportunidad_OportunidadID] FOREIGN KEY([OportunidadID])
+REFERENCES [dbo].[Oportunidad] ([OportunidadID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[LlamadasRecompraDac] CHECK CONSTRAINT [FK_LlamadasRecompraDac_Oportunidad_OportunidadID]
+GO
+ALTER TABLE [dbo].[LlamadasSuperDac]  WITH CHECK ADD  CONSTRAINT [FK_LlamadasSuperDac_Oportunidad_OportunidadID] FOREIGN KEY([OportunidadID])
+REFERENCES [dbo].[Oportunidad] ([OportunidadID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[LlamadasSuperDac] CHECK CONSTRAINT [FK_LlamadasSuperDac_Oportunidad_OportunidadID]
+GO
+ALTER TABLE [dbo].[Municipio]  WITH CHECK ADD  CONSTRAINT [FK_Municipio_Departamento_DepartamentoID] FOREIGN KEY([DepartamentoID])
+REFERENCES [dbo].[Departamento] ([DepartamentoID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Municipio] CHECK CONSTRAINT [FK_Municipio_Departamento_DepartamentoID]
+GO
+ALTER TABLE [dbo].[Oportunidad]  WITH CHECK ADD  CONSTRAINT [FK_Oportunidad_Cliente_ClienteID] FOREIGN KEY([ClienteID])
+REFERENCES [dbo].[Cliente] ([ClienteID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Oportunidad] CHECK CONSTRAINT [FK_Oportunidad_Cliente_ClienteID]
+GO
+ALTER TABLE [dbo].[Oportunidad]  WITH CHECK ADD  CONSTRAINT [FK_Oportunidad_EstatusDac_EstatusDacID] FOREIGN KEY([EstatusDacID])
+REFERENCES [dbo].[EstatusDac] ([EstatusDacID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Oportunidad] CHECK CONSTRAINT [FK_Oportunidad_EstatusDac_EstatusDacID]
+GO
+ALTER TABLE [dbo].[Oportunidad]  WITH CHECK ADD  CONSTRAINT [FK_Oportunidad_EstatusFinanciero_EstatusFinancieroID] FOREIGN KEY([EstatusFinancieroID])
+REFERENCES [dbo].[EstatusFinanciero] ([EstatusFinancieroID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Oportunidad] CHECK CONSTRAINT [FK_Oportunidad_EstatusFinanciero_EstatusFinancieroID]
+GO
+ALTER TABLE [dbo].[Oportunidad]  WITH CHECK ADD  CONSTRAINT [FK_Oportunidad_EstatusOportunidad_EstatusOportunidadID] FOREIGN KEY([EstatusOportunidadID])
+REFERENCES [dbo].[EstatusOportunidad] ([EstatusOportunidadID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Oportunidad] CHECK CONSTRAINT [FK_Oportunidad_EstatusOportunidad_EstatusOportunidadID]
+GO
+ALTER TABLE [dbo].[Oportunidad]  WITH CHECK ADD  CONSTRAINT [FK_Oportunidad_Financiera_FinancieraID] FOREIGN KEY([FinancieraID])
+REFERENCES [dbo].[Financiera] ([FinancieraID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Oportunidad] CHECK CONSTRAINT [FK_Oportunidad_Financiera_FinancieraID]
+GO
+ALTER TABLE [dbo].[Oportunidad]  WITH CHECK ADD  CONSTRAINT [FK_Oportunidad_Lider_LiderID] FOREIGN KEY([LiderID])
+REFERENCES [dbo].[Lider] ([LiderID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Oportunidad] CHECK CONSTRAINT [FK_Oportunidad_Lider_LiderID]
+GO
+ALTER TABLE [dbo].[Oportunidad]  WITH CHECK ADD  CONSTRAINT [FK_Oportunidad_Motivo_MotivoID] FOREIGN KEY([MotivoID])
+REFERENCES [dbo].[Motivo] ([MotivoID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Oportunidad] CHECK CONSTRAINT [FK_Oportunidad_Motivo_MotivoID]
+GO
+ALTER TABLE [dbo].[Oportunidad]  WITH CHECK ADD  CONSTRAINT [FK_Oportunidad_PmfVh_PmfVhID] FOREIGN KEY([PmfVhID])
+REFERENCES [dbo].[PmfVh] ([PmfVhID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Oportunidad] CHECK CONSTRAINT [FK_Oportunidad_PmfVh_PmfVhID]
+GO
+ALTER TABLE [dbo].[Oportunidad]  WITH CHECK ADD  CONSTRAINT [FK_Oportunidad_Sucursal_SucursalID] FOREIGN KEY([SucursalID])
+REFERENCES [dbo].[Sucursal] ([SucursalID])
+GO
+ALTER TABLE [dbo].[Oportunidad] CHECK CONSTRAINT [FK_Oportunidad_Sucursal_SucursalID]
+GO
+ALTER TABLE [dbo].[Oportunidad]  WITH CHECK ADD  CONSTRAINT [FK_Oportunidad_TipoClase_TipoClaseID] FOREIGN KEY([TipoClaseID])
+REFERENCES [dbo].[TipoClase] ([TipoClaseID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Oportunidad] CHECK CONSTRAINT [FK_Oportunidad_TipoClase_TipoClaseID]
+GO
+ALTER TABLE [dbo].[Oportunidad]  WITH CHECK ADD  CONSTRAINT [FK_Oportunidad_Usuario] FOREIGN KEY([UserIDCreacion])
+REFERENCES [dbo].[Usuario] ([UsuarioID])
+GO
+ALTER TABLE [dbo].[Oportunidad] CHECK CONSTRAINT [FK_Oportunidad_Usuario]
+GO
+ALTER TABLE [dbo].[Oportunidad]  WITH CHECK ADD  CONSTRAINT [FK_Oportunidad_Vendedor_VendedorID] FOREIGN KEY([VendedorID])
+REFERENCES [dbo].[Vendedor] ([VendedorID])
+GO
+ALTER TABLE [dbo].[Oportunidad] CHECK CONSTRAINT [FK_Oportunidad_Vendedor_VendedorID]
+GO
+ALTER TABLE [dbo].[Oportunidad]  WITH CHECK ADD  CONSTRAINT [FK_Oportunidad_Visita_VisitaID] FOREIGN KEY([VisitaID])
+REFERENCES [dbo].[Visita] ([VisitaID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Oportunidad] CHECK CONSTRAINT [FK_Oportunidad_Visita_VisitaID]
+GO
+ALTER TABLE [dbo].[PmfVh]  WITH CHECK ADD  CONSTRAINT [FK_PmfVh_Modelo_ModeloID] FOREIGN KEY([ModeloID])
+REFERENCES [dbo].[Modelo] ([ModeloID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[PmfVh] CHECK CONSTRAINT [FK_PmfVh_Modelo_ModeloID]
+GO
+ALTER TABLE [dbo].[RolesUsuarios]  WITH CHECK ADD  CONSTRAINT [FK_RolesUsuarios_Roles_RolID] FOREIGN KEY([RolID])
+REFERENCES [dbo].[Roles] ([RolID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[RolesUsuarios] CHECK CONSTRAINT [FK_RolesUsuarios_Roles_RolID]
+GO
+ALTER TABLE [dbo].[RolesUsuarios]  WITH CHECK ADD  CONSTRAINT [FK_RolesUsuarios_Usuario_UsuarioID] FOREIGN KEY([UsuarioID])
+REFERENCES [dbo].[Usuario] ([UsuarioID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[RolesUsuarios] CHECK CONSTRAINT [FK_RolesUsuarios_Usuario_UsuarioID]
+GO
+ALTER TABLE [dbo].[Vendedor]  WITH CHECK ADD  CONSTRAINT [FK_Vendedor_Lider_LiderID] FOREIGN KEY([LiderID])
+REFERENCES [dbo].[Lider] ([LiderID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Vendedor] CHECK CONSTRAINT [FK_Vendedor_Lider_LiderID]
+GO
+ALTER TABLE [dbo].[Vendedor]  WITH CHECK ADD  CONSTRAINT [FK_Vendedor_Sucursal_SucursalID] FOREIGN KEY([SucursalID])
+REFERENCES [dbo].[Sucursal] ([SucursalID])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Vendedor] CHECK CONSTRAINT [FK_Vendedor_Sucursal_SucursalID]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_InsertOrUpdateFunciones]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[SP_InsertOrUpdateFunciones]
+	@FuncionID INT=0, @NombreFuncion varchar(100), @Codigo VARCHAR(50), @Descripcion VARCHAR(100), 
+	@Activo BIT, @ARRAY VARCHAR(MAX)
+AS
+BEGIN TRY  	
+	BEGIN TRANSACTION
+	
+	IF (@FuncionID=0)
+	BEGIN
+		INSERT INTO Funciones (NombreFuncion, Codigo, Descripcion, Activo, FechaCreacion)
+		VALUES (@NombreFuncion, @Codigo, @Descripcion, @Activo, GETDATE())
+		SET @FuncionID=SCOPE_IDENTITY();
+	END
+	ELSE BEGIN
+		UPDATE [dbo].[Funciones] SET NombreFuncion=@NombreFuncion, 
+									Codigo=@Codigo, 
+									Descripcion=@Descripcion, 
+									Activo=@Activo, 
+									FechaModificacion=GETDATE()
+		WHERE FuncionID=@FuncionID
+	END
+
+	--ELIMINAR REGISTRO DE LA TABLA [FuncionesRoles]
+	DELETE FROM [dbo].[FuncionesRoles] WHERE FuncionID=@FuncionID
+
+	--Comprobar si tiene registro el arreglo
+	IF (LEN(@ARRAY)>0)
+	BEGIN
+		CREATE TABLE #DatosFunciones (RolID varchar(MAX))
+		INSERT INTO #DatosFunciones
+		EXECUTE  [dbo].[SP_ListarArray] @ARRAY, 0
+
+
+		---GUARDAR EL REGISTRO
+		INSERT INTO [dbo].[FuncionesRoles] (FuncionID, RolID, FechaCreacion)
+		SELECT  @FuncionID, RolID, GETDATE() FROM #DatosFunciones
+
+		DROP TABLE #DatosFunciones
+	END
+
+	COMMIT TRANSACTION; 
+
+END TRY  
+BEGIN CATCH  
+	ROLLBACK	
+	RETURN	ERROR_MESSAGE();    
+END CATCH
+
+GO
+/****** Object:  StoredProcedure [dbo].[SP_InsertOrUpdateRoles]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[SP_InsertOrUpdateRoles]
+	@RolID INT=0, @NombreRol varchar(100), @Descripcion VARCHAR(100), 
+	@Activo BIT, @ARRAY VARCHAR(MAX)
+AS
+BEGIN TRY  	
+	BEGIN TRANSACTION
+	
+	IF (@RolID=0)
+	BEGIN
+		INSERT INTO Roles (NombreRol, Descripcion, Activo, FechaCreacion)
+		VALUES (@NombreRol, @Descripcion, @Activo, GETDATE())
+		SET @RolID=SCOPE_IDENTITY();
+	END
+	ELSE BEGIN
+		UPDATE [dbo].[Roles] SET NombreRol=@NombreRol, 									
+									Descripcion=@Descripcion, 
+									Activo=@Activo, 
+									FechaModificacion=GETDATE()
+		WHERE RolID=@RolID
+	END
+
+	--ELIMINAR REGISTRO DE LA TABLA [FuncionesRoles]
+	DELETE FROM [dbo].[FuncionesRoles] WHERE RolID=@RolID
+
+	--Comprobar si tiene registro el arreglo
+	IF (LEN(@ARRAY)>0)
+	BEGIN
+		--crear una table
+		CREATE TABLE #DatosRoles (FuncionID varchar(MAX))
+		INSERT INTO #DatosRoles
+		EXECUTE  [dbo].[SP_ListarArray] @ARRAY, 0
+		
+		---GUARDAR EL REGISTRO
+		INSERT INTO [dbo].[FuncionesRoles] (FuncionID, RolID, FechaCreacion)
+		(SELECT  FuncionID, @RolID, GETDATE() FROM #DatosRoles)
+
+		DROP TABLE #DatosRoles;
+	END
+
+	COMMIT TRANSACTION; 
+
+END TRY  
+BEGIN CATCH  
+	ROLLBACK	
+	RETURN	ERROR_MESSAGE();    
+END CATCH
+
+GO
+/****** Object:  StoredProcedure [dbo].[SP_InsertOrUpdateUsuario]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[SP_InsertOrUpdateUsuario]
+	@NuevoUsuario AS BIT, @UsuarioID AS INT, @LoginUsuario AS VARCHAR(30), @NombreUsuario AS VARCHAR(100), @ApellidoUsuario AS VARCHAR(100), @Correo AS VARCHAR(60), 
+	@EsAdmin AS BIT, @CambiarClave AS BIT, @Salt AS VARCHAR(16), @Clave AS VARCHAR(44), @Activo AS BIT,  @ARRAY AS VARCHAR(MAX)
+AS
+BEGIN TRY  	
+	BEGIN TRANSACTION
+	
+	IF (@NuevoUsuario=1)
+	BEGIN
+		INSERT INTO [dbo].[Usuario] (LoginUsuario, NombreUsuario, ApellidoUsuario, Correo, EsAdmin, CambiarClave, Salt, Clave, Activo, FechaCreacion)
+		VALUES (@LoginUsuario, @NombreUsuario, @ApellidoUsuario, @Correo, @EsAdmin, @CambiarClave, @Salt, @Clave, @Activo, GETDATE())
+
+		SET @UsuarioID=SCOPE_IDENTITY();
+	END
+	ELSE BEGIN
+		UPDATE [dbo].[Usuario] SET LoginUsuario=@LoginUsuario, NombreUsuario=@NombreUsuario, ApellidoUsuario=@ApellidoUsuario, 
+								Correo=@Correo, EsAdmin=EsAdmin, CambiarClave=@CambiarClave, Salt=@Salt, Clave=@Clave, Activo=@Activo, 
+								FechaModificacion=GETDATE()
+		WHERE UsuarioID=@UsuarioID
+	END
+
+	--ELIMINAR REGISTRO DE LA TABLA [FuncionesRoles]
+	DELETE FROM [dbo].[RolesUsuarios] WHERE UsuarioID=@UsuarioID
+
+	--Comprobar si tiene registro el arreglo
+	IF (LEN(@ARRAY)>0)
+	BEGIN
+		CREATE TABLE #DatosRoles (RolID varchar(MAX))
+		INSERT INTO #DatosRoles
+		EXECUTE  [dbo].[SP_ListarArray] @ARRAY, 0
+
+
+		---GUARDAR EL REGISTRO
+		INSERT INTO [dbo].[RolesUsuarios] (RolID, UsuarioID, FechaCreacion)
+		(SELECT  RolID, @UsuarioID, GETDATE() FROM #DatosRoles)
+
+		DROP TABLE #DatosRoles
+	END
+
+	COMMIT TRANSACTION; 
+
+END TRY  
+BEGIN CATCH  
+	ROLLBACK	
+	RETURN	ERROR_MESSAGE();    
+END CATCH
+
+GO
+/****** Object:  StoredProcedure [dbo].[SP_ListarArray]    Script Date: 3/9/2022 13:52:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[SP_ListarArray] @Parametros varchar(MAX), @MostrarIndice BIT=1
+--@Parametros es la cadena de entrada
+AS
+--Creamos una tabla temporal por simplificar el trabajo
+--y almacenar los parametros que vayamos obteniendo
+CREATE TABLE #parametros (NoReferencia int, parametro varchar(MAX))
+SET NOCOUNT ON
+--El separador de nuestros parametros sera una ,
+DECLARE @Posicion int;
+DECLARE @Index int=1;
+--@Posicion es la posicion de cada uno de nuestros separadores
+DECLARE @Parametro varchar(MAX)
+--@Parametro es cada uno de los valores obtenidos
+--que almacenaremos en #parametros
+SET @Parametros = @Parametros + '*'
+
+--Colocamos un separador al final de los parametros
+--para que funcione bien nuestro codigo
+--Hacemos un bucle que se repite mientras haya separadores
+WHILE patindex('%*%' , @Parametros) <> 0
+--patindex busca un patron en una cadena y nos devuelve su posicion
+BEGIN
+  SELECT @Posicion =  patindex('%*%' , @Parametros)
+  --Buscamos la posicion de la primera ,
+  SELECT @Parametro = left(@Parametros, @Posicion - 1)
+  --Y cogemos los caracteres hasta esa posicion
+  INSERT INTO #parametros values (@index, @Parametro)
+  --y ese parámetro lo guardamos en la tabla temporal
+  --Reemplazamos lo procesado con nada con la funcion stuff
+  SELECT @Parametros = stuff(@Parametros, 1, @Posicion, '')
+  SET @Index = @Index +1;
+END
+
+IF (@MostrarIndice=1)
+	SELECT NoReferencia, parametro FROM #parametros
+ELSE
+	--Y cuando se han recorrido todos los parametros sacamos por pantalla el resultado
+	SELECT parametro FROM #parametros
+SET NOCOUNT OFF
+
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPane1', @value=N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
+Begin DesignProperties = 
+   Begin PaneConfigurations = 
+      Begin PaneConfiguration = 0
+         NumPanes = 4
+         Configuration = "(H (1[58] 4[3] 2[20] 3) )"
+      End
+      Begin PaneConfiguration = 1
+         NumPanes = 3
+         Configuration = "(H (1 [50] 4 [25] 3))"
+      End
+      Begin PaneConfiguration = 2
+         NumPanes = 3
+         Configuration = "(H (1 [50] 2 [25] 3))"
+      End
+      Begin PaneConfiguration = 3
+         NumPanes = 3
+         Configuration = "(H (4 [30] 2 [40] 3))"
+      End
+      Begin PaneConfiguration = 4
+         NumPanes = 2
+         Configuration = "(H (1 [56] 3))"
+      End
+      Begin PaneConfiguration = 5
+         NumPanes = 2
+         Configuration = "(H (2 [66] 3))"
+      End
+      Begin PaneConfiguration = 6
+         NumPanes = 2
+         Configuration = "(H (4 [50] 3))"
+      End
+      Begin PaneConfiguration = 7
+         NumPanes = 1
+         Configuration = "(V (3))"
+      End
+      Begin PaneConfiguration = 8
+         NumPanes = 3
+         Configuration = "(H (1[56] 4[18] 2) )"
+      End
+      Begin PaneConfiguration = 9
+         NumPanes = 2
+         Configuration = "(H (1 [75] 4))"
+      End
+      Begin PaneConfiguration = 10
+         NumPanes = 2
+         Configuration = "(H (1[66] 2) )"
+      End
+      Begin PaneConfiguration = 11
+         NumPanes = 2
+         Configuration = "(H (4 [60] 2))"
+      End
+      Begin PaneConfiguration = 12
+         NumPanes = 1
+         Configuration = "(H (1) )"
+      End
+      Begin PaneConfiguration = 13
+         NumPanes = 1
+         Configuration = "(V (4))"
+      End
+      Begin PaneConfiguration = 14
+         NumPanes = 1
+         Configuration = "(V (2))"
+      End
+      ActivePaneConfig = 0
+   End
+   Begin DiagramPane = 
+      Begin Origin = 
+         Top = 0
+         Left = 0
+      End
+      Begin Tables = 
+         Begin Table = "Cliente"
+            Begin Extent = 
+               Top = 5
+               Left = 534
+               Bottom = 391
+               Right = 733
+            End
+            DisplayFlags = 280
+            TopColumn = 13
+         End
+         Begin Table = "Oportunidad"
+            Begin Extent = 
+               Top = 138
+               Left = 38
+               Bottom = 268
+               Right = 270
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "Lider"
+            Begin Extent = 
+               Top = 58
+               Left = 802
+               Bottom = 188
+               Right = 995
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "Vendedor"
+            Begin Extent = 
+               Top = 241
+               Left = 534
+               Bottom = 371
+               Right = 727
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "TipoIdentificacion"
+            Begin Extent = 
+               Top = 402
+               Left = 38
+               Bottom = 532
+               Right = 243
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "Sucursal"
+            Begin Extent = 
+               Top = 534
+               Left = 38
+               Bottom = 664
+               Right = 231
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+      End
+   End
+   Begin SQLPane = 
+   End
+   Begin DataPane = 
+      Begin ParameterDefaults = ""
+      End
+      Begin ColumnWidths = 9
+         Width = 284
+         Width = 1500
+         Widt' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'vwfichasClientes'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPane2', @value=N'h = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+      End
+   End
+   Begin CriteriaPane = 
+      Begin ColumnWidths = 11
+         Column = 1440
+         Alias = 900
+         Table = 1170
+         Output = 720
+         Append = 1400
+         NewValue = 1170
+         SortType = 1350
+         SortOrder = 1410
+         GroupBy = 1350
+         Filter = 1350
+         Or = 1350
+         Or = 1350
+         Or = 1350
+      End
+   End
+End
+' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'vwfichasClientes'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPaneCount', @value=2 , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'vwfichasClientes'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPane1', @value=N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
+Begin DesignProperties = 
+   Begin PaneConfigurations = 
+      Begin PaneConfiguration = 0
+         NumPanes = 4
+         Configuration = "(H (1[57] 4[7] 2[20] 3) )"
+      End
+      Begin PaneConfiguration = 1
+         NumPanes = 3
+         Configuration = "(H (1 [50] 4 [25] 3))"
+      End
+      Begin PaneConfiguration = 2
+         NumPanes = 3
+         Configuration = "(H (1 [50] 2 [25] 3))"
+      End
+      Begin PaneConfiguration = 3
+         NumPanes = 3
+         Configuration = "(H (4 [30] 2 [40] 3))"
+      End
+      Begin PaneConfiguration = 4
+         NumPanes = 2
+         Configuration = "(H (1 [56] 3))"
+      End
+      Begin PaneConfiguration = 5
+         NumPanes = 2
+         Configuration = "(H (2 [66] 3))"
+      End
+      Begin PaneConfiguration = 6
+         NumPanes = 2
+         Configuration = "(H (4 [50] 3))"
+      End
+      Begin PaneConfiguration = 7
+         NumPanes = 1
+         Configuration = "(V (3))"
+      End
+      Begin PaneConfiguration = 8
+         NumPanes = 3
+         Configuration = "(H (1[56] 4[18] 2) )"
+      End
+      Begin PaneConfiguration = 9
+         NumPanes = 2
+         Configuration = "(H (1 [75] 4))"
+      End
+      Begin PaneConfiguration = 10
+         NumPanes = 2
+         Configuration = "(H (1[66] 2) )"
+      End
+      Begin PaneConfiguration = 11
+         NumPanes = 2
+         Configuration = "(H (4 [60] 2))"
+      End
+      Begin PaneConfiguration = 12
+         NumPanes = 1
+         Configuration = "(H (1) )"
+      End
+      Begin PaneConfiguration = 13
+         NumPanes = 1
+         Configuration = "(V (4))"
+      End
+      Begin PaneConfiguration = 14
+         NumPanes = 1
+         Configuration = "(V (2))"
+      End
+      ActivePaneConfig = 0
+   End
+   Begin DiagramPane = 
+      Begin Origin = 
+         Top = 0
+         Left = 0
+      End
+      Begin Tables = 
+         Begin Table = "Cliente"
+            Begin Extent = 
+               Top = 6
+               Left = 38
+               Bottom = 227
+               Right = 237
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "Oportunidad"
+            Begin Extent = 
+               Top = 14
+               Left = 397
+               Bottom = 400
+               Right = 632
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "LlamadasVendedor"
+            Begin Extent = 
+               Top = 10
+               Left = 725
+               Bottom = 410
+               Right = 982
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+      End
+   End
+   Begin SQLPane = 
+   End
+   Begin DataPane = 
+      Begin ParameterDefaults = ""
+      End
+      Begin ColumnWidths = 9
+         Width = 284
+         Width = 3330
+         Width = 3705
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+      End
+   End
+   Begin CriteriaPane = 
+      Begin ColumnWidths = 11
+         Column = 1440
+         Alias = 900
+         Table = 1170
+         Output = 720
+         Append = 1400
+         NewValue = 1170
+         SortType = 1350
+         SortOrder = 1410
+         GroupBy = 1350
+         Filter = 1350
+         Or = 1350
+         Or = 1350
+         Or = 1350
+      End
+   End
+End
+' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'vwLlamadaDelDiaVendedor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPaneCount', @value=1 , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'vwLlamadaDelDiaVendedor'
+GO
+USE [master]
+GO
+ALTER DATABASE [QAWEB] SET  READ_WRITE 
+GO
